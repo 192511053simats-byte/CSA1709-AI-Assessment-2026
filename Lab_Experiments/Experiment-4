@@ -1,0 +1,85 @@
+Experiment No: 4
+Title: Write a Python Program for the Crypt-Arithmetic Problem
+
+Aim
+To develop a Python program to solve the Crypt-Arithmetic Problem by assigning unique digits to letters such that the given arithmetic expression is satisfied.
+
+Objective
+To implement the Crypt-Arithmetic problem in Python by assigning unique digits to alphabets and verifying the correctness of the given arithmetic expression.
+
+Algorithm
+•	Step 1: Start the program. 
+•	Step 2: Read the words from the user. 
+•	Step 3: Identify all unique letters in the words. 
+•	Step 4: Generate possible digit assignments for the letters. 
+•	Step 5: Assign a unique digit to each letter. 
+•	Step 6: Check whether the arithmetic equation is satisfied. 
+•	Step 7: If a valid assignment is found, display the solution. 
+•	Step 8: Stop the program.
+Program
+from itertools import permutations
+# Read input
+word1 = input("Enter First Word: ").upper()
+word2 = input("Enter Second Word: ").upper()
+result = input("Enter Result Word: ").upper()
+
+letters = list(set(word1 + word2 + result))
+
+if len(letters) > 10:
+    print("Too many unique letters.")
+    exit()
+
+digits = '0123456789'
+
+found = False
+
+for perm in permutations(digits, len(letters)):
+    table = dict(zip(letters, perm))
+
+    # Leading letter cannot be zero
+    if table[word1[0]] == '0' or table[word2[0]] == '0' or table[result[0]] == '0':
+        continue
+
+    n1 = int(''.join(table[ch] for ch in word1))
+    n2 = int(''.join(table[ch] for ch in word2))
+    n3 = int(''.join(table[ch] for ch in result))
+
+    if n1 + n2 == n3:
+        print("\nSolution Found\n")
+        for k in sorted(table):
+            print(k, "=", table[k])
+
+        print("\n", n1)
+        print("+", n2)
+        print("------")
+        print(n3)
+        found = True
+        break
+
+if not found:
+    print("No Solution Found.")
+
+Sample Input
+Enter First Word: SEND
+Enter Second Word: MORE
+Enter Result Word: MONEY
+
+Sample Output
+Solution Found
+
+D = 7
+E = 5
+M = 1
+N = 6
+O = 0
+R = 8
+S = 9
+Y = 2
+
+9567
++1085
+------
+10652
+
+Result
+Thus, the Python program for the Crypt-Arithmetic Problem was executed successfully, and a valid digit assignment satisfying the given arithmetic expression was obtained.
