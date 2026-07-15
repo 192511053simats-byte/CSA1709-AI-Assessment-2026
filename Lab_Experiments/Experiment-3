@@ -1,0 +1,78 @@
+Experiment No: 3
+Title: Write a Python Program for the Water Jug Problem
+
+Aim
+To develop a Python program to solve the Water Jug Problem by determining the sequence of operations required to measure the desired quantity of water using two jugs of different capacities.
+
+Objective
+To implement the Water Jug Problem in Python using the operations of filling, emptying, and transferring water between the two jugs until the required quantity of water is obtained.
+
+Algorithm
+•	Step 1: Start the program. 
+•	Step 2: Read the capacities of Jug 1, Jug 2, and the target quantity from the user. 
+•	Step 3: Check whether the target quantity can be achieved. 
+•	Step 4: If the target is not possible, display an appropriate message and stop. 
+•	Step 5: Fill Jug 1 with water. 
+•	Step 6: Pour water from Jug 1 to Jug 2 and empty Jug 2 whenever it becomes full. 
+•	Step 7: Repeat the process until the target quantity is obtained. 
+•	Step 8: Display the steps and print the success message.
+
+Program
+from math import gcd
+
+def water_jug(jug1, jug2, target):
+    if target > max(jug1, jug2):
+        print("Target cannot be achieved.")
+        return
+
+    if target % gcd(jug1, jug2) != 0:
+        print("Target cannot be achieved.")
+        return
+
+    x = 0
+    y = 0
+
+    print("\nSteps:")
+
+    while x != target and y != target:
+
+        if x == 0:
+            x = jug1
+            print(f"Fill Jug1      -> ({x}, {y})")
+
+        elif y == jug2:
+            y = 0
+            print(f"Empty Jug2     -> ({x}, {y})")
+
+        else:
+            transfer = min(x, jug2 - y)
+            x -= transfer
+            y += transfer
+            print(f"Pour Jug1 -> Jug2 -> ({x}, {y})")
+
+    print("\nTarget achieved!")
+
+jug1 = int(input("Enter capacity of Jug1: "))
+jug2 = int(input("Enter capacity of Jug2: "))
+target = int(input("Enter target quantity: "))
+
+water_jug(jug1, jug2, target)
+
+
+Sample Input
+Enter capacity of Jug1: 4
+Enter capacity of Jug2: 3
+Enter target quantity: 2
+
+Sample Output
+Steps:
+Fill Jug1      -> (4, 0)
+Pour Jug1 -> Jug2 -> (1, 3)
+Empty Jug2     -> (1, 0)
+Pour Jug1 -> Jug2 -> (0, 1)
+Fill Jug1      -> (4, 1)
+Pour Jug1 -> Jug2 -> (2, 3)
+Target achieved!
+
+Result
+Thus, the Python program for the Water Jug Problem was executed successfully, and the required target quantity of water was obtained.
