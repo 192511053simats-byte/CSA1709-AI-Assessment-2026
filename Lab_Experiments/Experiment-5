@@ -1,0 +1,96 @@
+Experiment No: 5
+Title: Write a Python Program for the Missionaries and Cannibals Problem
+
+Aim
+To develop a Python program to solve the Missionaries and Cannibals Problem by safely transporting all missionaries and cannibals across the river without violating the problem constraints.
+
+Objective
+To implement the Missionaries and Cannibals problem in Python by generating valid boat movements and ensuring that the number of cannibals never exceeds the number of missionaries on either riverbank.
+
+Algorithm
+•	Step 1: Start the program. 
+•	Step 2: Define the initial state and the goal state. 
+•	Step 3: Generate all possible valid boat moves. 
+•	Step 4: Check whether each new state is valid. 
+•	Step 5: If the state is valid and not visited, add it to the queue. 
+•	Step 6: Repeat the process until the goal state is reached. 
+•	Step 7: Display the sequence of valid states. 
+•	Step 8: Stop the program. 
+
+Program
+from collections import deque
+
+# Check whether the state is valid
+def is_valid(m_left, c_left):
+    m_right = 3 - m_left
+    c_right = 3 - c_left
+
+    if m_left < 0 or c_left < 0 or m_left > 3 or c_left > 3:
+        return False
+    if (m_left > 0 and c_left > m_left):
+    return False
+
+    if (m_right > 0 and c_right > m_right):
+        return False
+
+    return True
+
+# BFS Algorithm
+def missionaries_cannibals():
+    start = (3, 3, 'L')
+    goal = (0, 0, 'R')
+
+    moves = [(1,0), (2,0), (0,1), (0,2), (1,1)]
+
+    queue = deque([[start]])
+    visited = set()
+
+    while queue:
+        path = queue.popleft()
+        state = path[-1]
+
+        if state == goal:
+            print("Solution Path:\n")
+            for s in path:
+                print(s)
+            return
+
+        if state in visited:
+            continue
+        visited.add(state)
+
+        m, c, boat = state
+
+        for dm, dc in moves:
+
+            if boat == 'L':
+                new_state = (m-dm, c-dc, 'R')
+            else:
+                new_state = (m+dm, c+dc, 'L')
+
+            if is_valid(new_state[0], new_state[1]):
+                queue.append(path + [new_state])
+
+    print("No Solution Found")
+missionaries_cannibals()
+
+Sample Input
+No user input required.
+
+Sample Output
+Solution Path:
+(3, 3, 'L')
+(3, 1, 'R')
+(3, 2, 'L')
+(3, 0, 'R')
+(3, 1, 'L')
+(1, 1, 'R')
+(2, 2, 'L')
+(0, 2, 'R')
+(0, 3, 'L')
+(0, 1, 'R')
+(1, 1, 'L')
+(0, 0, 'R')
+Result
+Thus, the Python program for the Missionaries and Cannibals Problem was executed successfully, and all missionaries and cannibals were safely transported across the river without violating the given constraints.
+
